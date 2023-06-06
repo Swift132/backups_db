@@ -1,7 +1,16 @@
 FROM mysql:5.7
 
-COPY ./scr /source
+COPY ./src /source
 
-RUN chmod +x /source/script.sh
+RUN yum update -y && yum install -y cronie
 
-RUN echo "* * * * root /source/script.sh" >> /etc/crontab
+RUN chmod +x /source/backup.sh
+
+# Adding crontab information to the appropriate location
+RUN echo "* * * * * root /source/backup.sh" > /etc/cron.d/my-cron-file
+
+# Giving permission to crontab file
+RUN chmod 0644 /etc/cron.d/my-cron-file
+
+# Running crontab
+RUN crontab /etc/cron.d/my-cron-file
