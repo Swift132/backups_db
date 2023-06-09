@@ -10,11 +10,25 @@ services:
       MYSQL_PASSWORD: xpto
     volumes:
       - ./dados:/dados
+      - ./src:/src
     ports:
       - 3306:3306
+    networks:
+      - db
       
+  backup_agent:
+    build: ./backup_agent
+    container_name: ${PRJ_NAME}backup_agent
+    tty: true
+    volumes:
+      - ./dados:/dados
+    networks:
+      - db
+    depends_on:
+      - db
+    
+
 networks:
   db:
-
 volumes:
-  data:
+  data: 

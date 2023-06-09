@@ -1,0 +1,22 @@
+FROM ubuntu:latest
+
+# Install ssh server
+RUN apt-get update && apt-get install -y openssh-server
+
+# Install ssh client
+RUN apt-get install -y openssh-client
+
+# Install cron
+RUN apt-get install -y cron
+
+# Install mysql client
+RUN apt-get install -y mysql-client
+
+# Install nano
+RUN apt-get install -y nano
+
+#install ping
+RUN apt-get install -y iputils-ping
+
+# Install ufw firewall
+RUN apt-get install -y ufw
